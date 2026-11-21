@@ -21150,7 +21150,7 @@ requestAnimationFrame(frame);
   window.addEventListener('hashchange', () => { const h = location.hash.slice(1); if (THEMES[h] && h !== cur) show(h); });
   let start = location.hash.slice(1);
   if (!THEMES[start]) { try { start = localStorage.getItem(KEY) || ''; } catch (e) { start = ''; } }
-  show(THEMES[start] ? start : 'spider');
+  show(THEMES[start] ? start : 'neural');
 })();
 </script>
 
