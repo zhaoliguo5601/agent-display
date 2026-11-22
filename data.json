@@ -1,0 +1,29 @@
+{
+  "updated": "2026-11-22",
+  "meters": [
+    { "name": "示例户 A", "no": "0000000000000", "balance": 0.0, "day": 0.0, "status": "ok" },
+    { "name": "示例户 B", "no": "0000000000000", "balance": 0.0, "day": 0.0, "status": "ok" }
+  ],
+  "drives": [
+    { "name": "示例云盘 1", "key": "demo1", "gb": 128, "files": 12000 },
+    { "name": "示例云盘 2", "key": "demo2", "gb": 32, "files": 800 }
+  ],
+  "tasks": [
+    { "name": "示例任务 · 数据采集", "status": "ok", "pct": 100 },
+    { "name": "示例任务 · 清单核对", "status": "ok", "pct": 100 },
+    { "name": "示例任务 · 指标重算", "status": "ok", "pct": 100 },
+    { "name": "示例任务 · 定时巡检", "status": "ok", "pct": 100 },
+    { "name": "示例任务 · 待接入", "status": "none", "pct": 0 },
+    { "name": "示例任务 · 待开通", "status": "wait", "pct": 0 },
+    { "name": "示例任务 · 待部署", "status": "wait", "pct": 0 }
+  ],
+  "unicom": {
+    "items": [
+      { "no": "示例 01", "status": "ok" },
+      { "no": "示例 02", "status": "ok" },
+      { "no": "示例 03", "status": "ok" }
+    ]
+  },
+  "aliyun": { "status": "Running" },
+  "github": { "commits": 12 }
+}

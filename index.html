@@ -6,7 +6,7 @@
   非商业用途可免费使用；商业使用需另行获得授权，联系 cyberdaddyleo@outlook.com。许可证全文见仓库 LICENSE 文件或 https://polyformproject.org/licenses/noncommercial/1.0.0
 -->
 <html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>Agent 战术大屏</title>
+<title>立橙数据中心神经星环版</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -690,9 +690,9 @@ body{background:var(--page);overflow:hidden}
  <div class="board" id="board">
   <header class="hd">
    <div class="eb">AGENT OPS · THEME <b>03</b> · SYNAPTIC DISPATCH</div>
-   <h1><span>NEURAL</span><span>RING<em>神经星环</em></span></h1>
+   <h1><span style="font-family:var(--cjk);font-weight:900">立橙数据中心</span><span style="font-family:var(--cjk);font-weight:900">神经星环版</span></h1>
    <div class="sub">CHIEF 拆单 · 12 个智能体接力 · CRAWLER 巡检</div>
-   <div class="sub2">示例数据 · 本地模拟 · 未接模型 · <b id="clock">--:--:--</b></div>
+   <div class="sub2">本地台账 · 云电脑运行 · 未上线 · <b id="clock">--:--:--</b></div>
   </header>
 
   <div class="cap" id="cap">
@@ -743,7 +743,7 @@ body{background:var(--page);overflow:hidden}
 
  <div class="mini" id="mini">
   <div class="m-top">
-   <div class="m-title">NEURAL RING<i>神经星环 · 示例数据</i></div>
+   <div class="m-title">立橙数据中心<i>神经星环版 · 本地台账</i></div>
    <div class="m-btns pe">
     <button class="tb" type="button" data-act="mode">视角<b data-f="mode">环绕</b></button>
     <button class="tb" type="button" data-series-pick>主题</button>
@@ -21150,8 +21150,50 @@ requestAnimationFrame(frame);
   window.addEventListener('hashchange', () => { const h = location.hash.slice(1); if (THEMES[h] && h !== cur) show(h); });
   let start = location.hash.slice(1);
   if (!THEMES[start]) { try { start = localStorage.getItem(KEY) || ''; } catch (e) { start = ''; } }
-  show(THEMES[start] ? start : 'neural');
+  show('neural');
 })();
 </script>
 
+<aside id="lcDash" hidden style="position:fixed;left:14px;bottom:14px;z-index:9999;width:248px;background:rgba(4,10,16,.84);border:1px solid rgba(0,229,255,.28);border-radius:10px;font-family:'Noto Sans SC',system-ui,sans-serif;color:#dceaf2;backdrop-filter:blur(8px);box-shadow:0 8px 30px rgba(0,0,0,.5)">
+  <div id="lcHead" style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 13px;cursor:pointer;user-select:none">
+    <b style="font-size:12px;letter-spacing:.12em;color:#00e5ff;white-space:nowrap">立橙数据中心 · 神经星环版</b>
+    <span style="display:flex;align-items:center;gap:8px"><span class="lc-time" style="font-size:9px;color:#6b7685"></span><i class="lc-arrow" style="font-style:normal;font-size:10px;color:#6b7685">▸</i></span>
+  </div>
+  <div class="lc-body" style="display:none;gap:6px;padding:0 13px 12px"></div>
+</aside>
+<script>
+(async function(){
+  let D=null;
+  try{ const r=await fetch('./data.json',{cache:'no-store'}); if(!r.ok) throw new Error('http '+r.status); D=await r.json(); }catch(e){ return; }
+  const el=document.getElementById('lcDash'); if(!el) return;
+  const meters=D.meters||[], drives=D.drives||[], tasks=D.tasks||[],
+        uni=(D.unicom&&D.unicom.items)||[], ali=D.aliyun||{}, jd=D.jd||{}, gh=D.github||{};
+  const bal=meters.reduce((a,m)=>a+(+m.balance||0),0);
+  const day=meters.reduce((a,m)=>a+(+m.day||0),0);
+  const gb=drives.reduce((a,x)=>a+(+x.gb||0),0);
+  const files=drives.reduce((a,x)=>a+(+x.files||0),0);
+  const ok=tasks.filter(t=>t.status==='ok').length;
+  const on=String((ali.status||'—')).toLowerCase()==='running';
+  const rows=[
+    ['电表余额', bal.toFixed(2)+' 元'],
+    ['今日用电', day.toFixed(1)+' 度'],
+    ['云盘容量', gb.toFixed(0)+' GB'],
+    ['云盘文件', files.toLocaleString()],
+    ['在网号码', uni.length+' 张'],
+    ['Agent 任务', ok+'/'+tasks.length+' 完成'],
+    ['ECS 实例', on?'运行中':(ali.status||'—')],
+    ['仓库提交', (gh.commits??'—')+' 次']
+  ];
+  const body=el.querySelector('.lc-body');
+  body.innerHTML=rows.map(([k,v])=>
+    '<div style="display:flex;justify-content:space-between;gap:10px;font-size:11px;line-height:1.5">'+
+    '<span style="color:#93a4b5">'+k+'</span><b style="font-weight:600;color:#eafcff;font-variant-numeric:tabular-nums">'+v+'</b></div>'
+  ).join('');
+  const t=el.querySelector('.lc-time'); if(t) t.textContent='快照 '+(D.updated||D.capturedAt||'—');
+  let open=false;
+  const head=document.getElementById('lcHead'), arrow=el.querySelector('.lc-arrow');
+  head.addEventListener('click',()=>{ open=!open; body.style.display=open?'grid':'none'; arrow.textContent=open?'▾':'▸'; });
+  el.hidden=false;
+})();
+</script>
 </body></html>
