@@ -680,8 +680,9 @@ body{background:var(--page);overflow:hidden}
 .m-stats b{font-size:16px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
 .m-wm{margin-top:6px;font-family:var(--display);font-size:8px;letter-spacing:.3em;color:var(--dim);text-align:center}
 .glfail{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);max-width:340px;text-align:center;font-family:var(--cjk);font-size:13px;line-height:1.7;color:var(--ink2);border:1px solid var(--hair2);padding:14px 18px;background:rgba(4,7,13,.85)}
-/* 纯 3D 演示：隐藏全部 HUD 覆盖面板、左列/右列/底部指标条与悬停提示，仅保留星环画布与暗角 */
-.nr,.tip{display:none!important}
+/* 纯 3D 演示：隐藏标题/顶部脉冲/左列/右列/底部指标条/水印/窄屏信息与悬停提示；保留右上角视角切换与全屏按钮，隐藏主题切换 */
+.hd,.cap,.lt,.rc,.bs,.wm,.mini,.tip{display:none!important}
+.tools [data-series-pick]{display:none!important}
 @media (prefers-reduced-motion:reduce){.conn path{animation:none}.cl .bar i{transition:none}}
 </style>
 
